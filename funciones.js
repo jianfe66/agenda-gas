@@ -11,4 +11,3 @@ function obtenerContactos(){
     let datos = hoja.getDataRange().getValues();
     return datos;
 }
-obtenerContactos();
