@@ -27,6 +27,8 @@
     {
         //Eliminamos los datos de los imputs        
         document.getElementById('nombre').value = '';
+        document.getElementById('apellidos').value = '';
+        document.getElementById('telf').value = '';
         document.getElementById('correo').value = '';
 
         //mostrar notificación 
@@ -80,6 +82,14 @@
             celda.textContent = obj[0][i];
             primeraFila.appendChild(celda);
         }
+
+        //agregar columna opciones
+        let celdaOpciones = document.createElement('td');
+        celdaOpciones.classList.add('text-center');
+        celdaOpciones.textContent = 'OPCIONES';
+        primeraFila.appendChild(celdaOpciones);
+
+        //agregar  la fila al header de la tabla
         tablaHeader.appendChild(primeraFila);
         tabla.appendChild(tablaHeader);
 
@@ -93,7 +103,10 @@
                 celda.textContent = obj[i][j];
                 fila.appendChild(celda);
             }
-                tablaBody.appendChild(fila);
+
+            //agregar los botones a la fila
+            fila.appendChild(crearCeldaBotones(i+1));
+            tablaBody.appendChild(fila);
             
         }
 
@@ -113,6 +126,69 @@
         eliminarLoader();
     }
     
+    function crearCeldaBotones(numFila)
+    {
+        let celda = document.createElement('td');
+        celda.classList.add('text-center');
+
+        //crear botón borrar
+        let botonBorrar = document.createElement('button');
+        botonBorrar.onclick = () => borrarContacto(numFila);
+        botonBorrar.classList.add('btn','btn-danger','m-1');
+        
+        //icono borrar
+        let iconoBorrar = document.createElement('i');
+        iconoBorrar.classList.add('bi','bi-trash');
+        botonBorrar.appendChild(iconoBorrar);
+        
+        //crear botón modificar
+        let botonModificar = document.createElement('button');
+        //botonModificar.onclick = () => borrarContacto(numFila);
+        botonModificar.classList.add('btn','btn-warning','m-1');
+        
+        //icono modificar
+        let iconoModificar = document.createElement('i');
+        iconoModificar.classList.add('bi','bi-pencil-square');
+        botonModificar.appendChild(iconoModificar);
+
+
+        //agregar los botones a la celda
+        celda.appendChild(botonBorrar);
+        celda.appendChild(botonModificar);
+
+        return celda;
+
+    }
+
+    function borrarContacto(numFila)
+    {
+        //eliminar tabla
+        eliminarTabla();
+        
+        // crear loader
+        crearLoaderPuntos('divContactos');
+
+        google.script.run
+        .withSuccessHandler(contactoBorradoCorrectamente)
+        .withFailureHandler(contactoBorradoError)
+        .borrarContacto(numFila);
+    }
+
+    function contactoBorradoCorrectamente()
+    {
+        crearNotificacionOK('Contacto borrado correctamente','BORRADO OK');
+        eliminarLoader();
+        crearTablaContactos();
+    }
+    
+    function contactoBorradoError()
+    {
+        crearNotificacionError('No se ha podido borrar el contacto','ERROR');
+        eliminarLoader();
+        crearTablaContactos();
+
+    }
+
     function crearTablaContactosError()
     {
         //mostrar notificacion de error
@@ -198,10 +274,6 @@
         let loader = crearLoader(elementoPadre);
         loader.classList.add('lds-ring');
     }
-
-        
-        
-
 
     function eliminarLoader()
     {
