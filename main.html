@@ -8,23 +8,15 @@
 
 
 	<!-- Tabla de contactos -->
-	<div id="divContactos" class="container col-12 col-lg-6 d-flex justify-content-center">
+	<div id="divContactos" class="container col-12 col-lg-6 d-flex justify-content-center"></div>
 
-	</div>
 	<!-- Notificaciones -->
-	<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-		<!-- Toast -->
-		<div id="notificacion" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive"
-			aria-atomic="true">
-
-			<div class="toast-header p-0">
-				<div class="icono-notificacion"><i id="iconoNotificacion"></i></div>
-				<strong class="mr-auto" id="tituloNotificacion"></strong>
-				<button type="button" class="btn-close m-2" data-bs-dismiss="toast" aria-label="Close"></button>
-			</div>
-			<div id="mensajeNotificacion" class="toast-body"></div>
+	<div class="div-notificaciones position-fixed end-1 p-3">
+		<div id = "contenedorNotificaciones" class="toast-container">
+			<!-- Aqui van las notificaciones -->
 		</div>
 	</div>
+	
 
 	<!-- Modal -->
 	<div class="modal fade" id="crearContactoModal" tabindex="-1" role="dialog"
