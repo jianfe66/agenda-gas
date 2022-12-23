@@ -1,9 +1,12 @@
 <main>
 	<!-- Botones Superiores -->
 	<div class="d-flex justify-content-center my-3">
-		<button type="button" class="btn btn-success m-2" onclick="crearTarjetasContactos()"><i class="bi bi-postcard"></i></button>
-		<button type="button" class="btn btn-success m-2" onclick="crearTablaContactos()"><i class="bi bi-table"></i></button>
-		<button type="button" class="btn btn-primary m-2" onclick="abrirModalCrearContacto()"><i class="bi bi-person-plus"></i></button>
+		<button type="button" class="btn btn-success m-2" onclick="crearTarjetasContactos()"><i
+				class="bi bi-postcard"></i></button>
+		<button type="button" class="btn btn-success m-2" onclick="crearTablaContactos()"><i
+				class="bi bi-table"></i></button>
+		<button type="button" class="btn btn-primary m-2" onclick="abrirModalCrearContacto()"><i
+				class="bi bi-person-plus"></i></button>
 		<button type="button" class="btn btn-warning m-2" onclick="importarContactos()">+ 5</button>
 
 	</div>
@@ -69,11 +72,14 @@
 
 							<!-- Parte Derecha -->
 							<div class="div-img-form">
-								<i class="icono-form bi bi-question-circle-fill btn" data-bs-toggle="popover" data-bs-content="Se recomienda imágenes cuadradas par una mejor visualización. De lo contrario parte de la imagen podrá ser recortada, resolución recomendada 320x320" data-bs-trigger="hover"></i>
-								<img class="img-fluid img-form" id="imgForm"  alt="Imagen de contacto">
+								<i class="icono-form bi bi-question-circle-fill btn" data-bs-toggle="popover"
+									data-bs-content="Se recomienda imágenes cuadradas par una mejor visualización. De lo contrario parte de la imagen podrá ser recortada, resolución recomendada 320x320"
+									data-bs-trigger="hover"></i>
+								<img class="img-fluid img-form" id="imgForm" alt="Imagen de contacto">
 								<div id="lottieForm" class="lottie-form">
-									<lottie-player src ="https://assets6.lottiefiles.com/packages/lf20_z7DhMX.json" speed="1" loop autoplay></lottie-player>
-			
+									<lottie-player src="https://assets6.lottiefiles.com/packages/lf20_z7DhMX.json"
+										speed="1" loop autoplay></lottie-player>
+
 								</div>
 							</div>
 						</div>
@@ -85,6 +91,42 @@
 					</div>
 				</form>
 
+			</div>
+		</div>
+	</div>
+	<!-- Modal info contacto -->
+	<div class="modal fade" id="infoContactoModal" tabindex="-1" role="dialog"
+		aria-labelledby="tituloCrearContactoModal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="d-flex justify-content-center align-items-center flex-column">
+						<!-- Parte superior -->
+						<div class="m-3">
+							<h3 class="text-uppercase text-center fw-bold mb-2" id="nombreInfoContacto"></h3>
+							<div class="d-flex align-items-center">
+								<i class="bi bi-envelope-fill me-2"></i>
+								<h5 class="me-4" id="correoInfoContacto"></h5>
+								<i id="copiarCorreo" class="bi bi-clipboard boton-copiar" data-bs-toggle="tooltip" data-bs-placement="right" title="Copiar Correo"></i>
+							</div>
+							<div class="d-flex align-items-center">
+								<i class="bi bi-telephone-fill me-2"></i>
+								<h5 class="me-4" id="telfInfoContacto"></h5>
+								<i id="copiarTelf" class="bi bi-clipboard boton-copiar" data-bs-toggle="tooltip" data-bs-placement="right" title="Copiar Teléfono"></i></i>
+							</div>
+						</div>
+
+						<!-- Parte inferior -->
+						<div class="m-3">
+							<img alt="Vista previa de la imagen del contacto" id="imgInfoContacto"
+								class="border border-4 border-dark rounded">
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+				</div>
 			</div>
 		</div>
 	</div>

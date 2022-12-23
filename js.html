@@ -1,5 +1,5 @@
 <script>
-  /////////////////////
+    /////////////////////
     ///CONSTANTES
     ////////////////////
 
@@ -37,24 +37,21 @@
     });
 
     //dragover
-    document.getElementById('imgForm').addEventListener('dragover', function(event)
-    {
+    document.getElementById('imgForm').addEventListener('dragover', function (event) {
         event.preventDefault();
         this.style.filter = 'opacity(0%)';
-        document.getElementById('lottieForm').style.display ='flex';
+        document.getElementById('lottieForm').style.display = 'flex';
     });
-    
+
     //dragleave
-    document.getElementById('imgForm').addEventListener('dragleave', function(event)
-    {
+    document.getElementById('imgForm').addEventListener('dragleave', function (event) {
         this.style.filter = 'opacity(100%)';
-        document.getElementById('lottieForm').style.display ='none';
+        document.getElementById('lottieForm').style.display = 'none';
     });
     //drop
-    document.getElementById('imgForm').addEventListener('drop', function(event)
-    {
+    document.getElementById('imgForm').addEventListener('drop', function (event) {
         event.preventDefault();
-        
+
         let ficheros = event.dataTransfer.files;
 
         //pasamos los archivos al input
@@ -65,17 +62,41 @@
 
         //mostramos la imagen y quitamos la zona de carga
         this.style.filter = 'opacity(100%)';
-        document.getElementById('lottieForm').style.display ='none';
+        document.getElementById('lottieForm').style.display = 'none';
     });
-    
 
+    document.getElementById('copiarCorreo').addEventListener('click', function (event) {
+        copiarContenido(this, 'correoInfoContacto');
+    });
 
+    document.getElementById('copiarTelf').addEventListener('click', function (event) {
+        copiarContenido(this, 'telfInfoContacto');
+    });
 
+    function copiarContenido(icono, id) {
+        let texto = document.getElementById(id).textContent;
+        navigator.clipboard.writeText(texto)
+            .then(() => {
+                icono.classList.remove('bi-clipboard');
+                icono.classList.add('bi-check-lg');
+                icono.title = 'Copiado';
+                bootstrap.Tooltip.getOrCreateInstance(icono).show();
+                restaurarIcono(icono);
+            })
+    }
 
+    function restaurarIcono(icono) {
+        setTimeout(function () {
+            icono.classList.remove('bi-check-lg');
+            icono.classList.add('bi-clipboard');
+            icono.title = ' ';
+            bootstrap.Tooltip.getInstance(icono).dispose();
+        }, 2000);
+    }
 
-
-
-
+    ///////////////////////////////
+    ///////////////////////////////
+    ///////////////////////////////
 
     function subirArriba() {
         document.body.scrollTop = 0;
@@ -101,13 +122,12 @@
         let contacto = guardarDatosContacto();
         let archivo = document.getElementById('imagen').files[0];
 
-        if(archivo) subirImagenInsertar(contacto, archivo);
-        else
-        {
+        if (archivo) subirImagenInsertar(contacto, archivo);
+        else {
             google.script.run
-            .withSuccessHandler(contactoInsertadoCorrectamente)
-            .withFailureHandler(contactoInsertadoError)
-            .insertarContacto(contacto);
+                .withSuccessHandler(contactoInsertadoCorrectamente)
+                .withFailureHandler(contactoInsertadoError)
+                .insertarContacto(contacto);
         }
     }
 
@@ -115,24 +135,22 @@
 
         let contacto =
         {
-            nombre      : document.getElementById('nombre').value,
-            apellidos   : document.getElementById('apellidos').value,
-            correo      : document.getElementById('correo').value,
-            telf        : document.getElementById('telf').value,
-            imagen      : document.getElementById('imgForm').src
+            nombre: document.getElementById('nombre').value,
+            apellidos: document.getElementById('apellidos').value,
+            correo: document.getElementById('correo').value,
+            telf: document.getElementById('telf').value,
+            imagen: document.getElementById('imgForm').src
 
         };
         return contacto;
 
     }
 
-    function subirImagenInsertar(contacto, archivo)
-    {
+    function subirImagenInsertar(contacto, archivo) {
         let fr = new FileReader();
         fr.readAsArrayBuffer(archivo);
 
-        fr.onload = function()
-        {
+        fr.onload = function () {
             let imagen =
             {
                 nombre: archivo.name,
@@ -140,9 +158,9 @@
                 datos: Array.from(new Int8Array(this.result))
             };
             google.script.run
-            .withSuccessHandler(contactoInsertadoCorrectamente)
-            .withFailureHandler(contactoInsertadoError)
-            .insertarContacto(contacto, imagen);
+                .withSuccessHandler(contactoInsertadoCorrectamente)
+                .withFailureHandler(contactoInsertadoError)
+                .insertarContacto(contacto, imagen);
         }
     }
 
@@ -178,24 +196,21 @@
 
         let archivo = document.getElementById('imagen').files[0];
 
-        if(archivo) subirImagenModificar(contacto, archivo);
-        else
-        {
+        if (archivo) subirImagenModificar(contacto, archivo);
+        else {
             google.script.run
-            .withSuccessHandler(contactoModificadoCorrectamente)
-            .withFailureHandler(contactoModificadoError)
-            .modificarContacto(contacto);
-            
+                .withSuccessHandler(contactoModificadoCorrectamente)
+                .withFailureHandler(contactoModificadoError)
+                .modificarContacto(contacto);
+
         }
     }
 
-    function subirImagenModificar(contacto, archivo)
-    {
+    function subirImagenModificar(contacto, archivo) {
         let fr = new FileReader();
         fr.readAsArrayBuffer(archivo);
 
-        fr.onload = function()
-        {
+        fr.onload = function () {
             let imagen =
             {
                 nombre: archivo.name,
@@ -203,9 +218,9 @@
                 datos: Array.from(new Int8Array(this.result))
             };
             google.script.run
-            .withSuccessHandler(contactoModificadoCorrectamente)
-            .withFailureHandler(contactoModificadoError)
-            .modificarContacto(contacto, imagen);
+                .withSuccessHandler(contactoModificadoCorrectamente)
+                .withFailureHandler(contactoModificadoError)
+                .modificarContacto(contacto, imagen);
         }
     }
 
@@ -263,9 +278,15 @@
     }
 
     //Habilitar popovers
-    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-    var popoverList = popoverTriggerList.map(function(popoverTriggerEl){
-      return new bootstrap.Popover(popoverTriggerEl)
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-togle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
     })
+
+    //Habilitar tooltips
+    /* var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-togle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl){
+       return new bootstrap.tooltip(tooltipTriggerEl)
+     })*/
 
 </script>
