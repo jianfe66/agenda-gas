@@ -17,8 +17,8 @@
         tarjetas.classList.add('d-flex', 'justify-content-center', 'flex-wrap');
 
         //por cada contacto, creamos la tarjeta
-        //contactos.forEach(contacto => tarjetas.appendChild(crearContactoPlantilla(contacto)));
-        contactos.forEach(contacto => tarjetas.innerHTML += crearContactoHTMLEstilo5(contacto));
+        contactos.forEach(contacto => tarjetas.appendChild(crearContactoPlantilla(contacto)));
+        //contactos.forEach(contacto => tarjetas.innerHTML += crearContactoHTMLEstilo5(contacto));
 
         //agregar tarjetas
         document.getElementById('divContactos').appendChild(tarjetas);
@@ -26,7 +26,7 @@
         //eliminar loader
         eliminarLoader();
     }
-
+    /*
     function crearContactoHTMLEstilo1(contacto) {
         return `
         <div id='tarjeta${contacto.fila}' class='caja-estilo-1 my-5 mx-2'>
@@ -107,9 +107,9 @@
             </div>
         </div>`
     }
-
+    */
     function crearContactoPlantilla(contacto) {
-        let plantilla = document.getElementById('plantillaContacto');
+        let plantilla = document.getElementById(estiloActual);
         let copia = document.importNode(plantilla.content, true);
 
         copia.getElementById('plantillaNumero').id = 'tarjeta' + contacto.fila;
